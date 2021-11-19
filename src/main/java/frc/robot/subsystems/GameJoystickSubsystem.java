@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class JoystickSubsystem extends SubsystemBase {
-  /** Creates a new JoystickSubsystem. */
+public class GameJoystickSubsystem extends SubsystemBase {
+  /** Creates a new GameJoystickSubsystem. */
 
 XboxController Controller;
 
-  public JoystickSubsystem() {
+  public GameJoystickSubsystem() {
     Controller = new XboxController(Constants.gameControllerPort);
 
   }
