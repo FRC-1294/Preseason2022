@@ -3,12 +3,11 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
-import static edu.wpi.first.wpilibj.templates.commandbased.Constants.OIConstants.*;
+
 import edu.wpi.first.wpilibj.command.Command;
 
-
-public class Parabola extends Command {
-  public Parabola() {
+public class TestCommand extends Command {
+  public TestCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
