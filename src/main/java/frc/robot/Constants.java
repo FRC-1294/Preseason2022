@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 
 /**
@@ -31,6 +34,19 @@ public final class Constants {
     public static final double kRamseteB = 2;
     public static final double kRamseteZeta = 0.7;
     public static final double DriveConstants = 1.5;
+    //need to update left and right ports below
+    public static final int kLeftMotor1Port=1;
+    public static final int kLeftMotor2Port=2;
+    public static final int kRightMotor1Port=3;
+    public static final int kRightMotor2Port=4;
 
+    //need to update left and right encoder ports as well
+    public static final int[] kRightEncoderPorts= {0};
+    public static final boolean kRightEncoderReversed= false;
+    public static final int[] kLeftEncoderPorts= {0};
+    public static final boolean  kLeftEncoderReversed= false;
+	public static final double kEncoderDistancePerPulse = 0;
+    
+    
 
 }
