@@ -4,9 +4,6 @@
 
 package frc.robot.commands;
 
-import frc.robot.Constants;
-import frc.robot.subsystems.ExampleSubsystem;
-
 import java.util.List;
 
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -22,22 +19,14 @@ import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConst
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import frc.robot.Constants;
+import frc.robot.subsystems.DriveSubsystem;
 
-
-/** An example command that uses an example subsystem. */
-public class ExampleCommand extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ExampleSubsystem m_subsystem;
-
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  public ExampleCommand(ExampleSubsystem subsystem) {
-    m_subsystem = subsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+public class Trajectory_Command extends CommandBase {
+  /** Creates a new Trajectory_Command. */
+  DriveSubsystem driveSubsystem;
+  public Trajectory_Command(DriveSubsystem driveSubsystem) {
+    this.driveSubsystem = driveSubsystem;
   }
 
   public Command getAutonomousCommand() {
@@ -77,25 +66,25 @@ public class ExampleCommand extends CommandBase {
 
     RamseteCommand ramseteCommand = new RamseteCommand(
         exampleTrajectory,
-        m_robotDrive::getPose,
+        driveSubsystem::getPose,
         new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
         new SimpleMotorFeedforward(Constants.ksVolts,
                                    Constants.kvVoltSecondsPerMeter,
                                    Constants.kaVoltSecondsSquaredPerMeter),
         Constants.kDriveKinematics,
-        m_robotDrive::getWheelSpeeds,
+        driveSubsystem::getWheelSpeeds,
         new PIDController(Constants.kPDriveVel, 0, 0),
         new PIDController(Constants.kPDriveVel, 0, 0),
         // RamseteCommand passes volts to the callback
-        m_robotDrive::tankDriveVolts,
-        m_robotDrive
+        driveSubsystem::tankDriveVolts,
+        driveSubsystem
     );
 
     // Reset odometry to the starting pose of the trajectory.
-    m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
+    driveSubsystem.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return ramseteCommand.andThen(() -> m_robotDrive.tankDriveVolts(0, 0));
+    return ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0));
   }
 
   // Called when the command is initially scheduled.
