@@ -27,6 +27,7 @@ public class Trajectory_Command extends CommandBase {
   DriveSubsystem driveSubsystem;
   public Trajectory_Command(DriveSubsystem driveSubsystem) {
     this.driveSubsystem = driveSubsystem;
+    System.out.println("HERR");
   }
 
   public Command getAutonomousCommand() {
