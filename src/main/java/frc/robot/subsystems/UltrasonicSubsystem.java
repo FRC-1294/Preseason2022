@@ -11,17 +11,16 @@ import frc.robot.Constants;
 public class UltrasonicSubsystem extends SubsystemBase {
   /** Creates a new UltrasonicSubsystem. */
 
-  Ultrasonic UltraSensor;  
+  static Ultrasonic UltraSensor;
 
   public UltrasonicSubsystem() {
 
-    UltraSensor = new Ultrasonic(Constants.UltraSensorPingChannel,Constants.UltraSensorEchoChannel); //TODO: Get correct numbers
+    UltraSensor = new Ultrasonic(Constants.UltraSensorPingChannel, Constants.UltraSensorEchoChannel); // TODO: Get
+                                                                                                      // correct numbers
     UltraSensor.setEnabled(true);
   }
 
-  
-
-  public double getInches() {
+  public static double getInches() {
     return UltraSensor.getRangeInches();
 
   }
