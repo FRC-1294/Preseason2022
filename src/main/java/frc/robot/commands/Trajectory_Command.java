@@ -21,6 +21,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveSubsystem;
+import edu.wpi.first.wpilibj.shuffleboard.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Trajectory_Command extends CommandBase {
   /** Creates a new Trajectory_Command. */
@@ -28,6 +30,7 @@ public class Trajectory_Command extends CommandBase {
   public Trajectory_Command(DriveSubsystem driveSubsystem) {
     this.driveSubsystem = driveSubsystem;
     System.out.println("HERR");
+    
   }
 
   public Command getAutonomousCommand() {
