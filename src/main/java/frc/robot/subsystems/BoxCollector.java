@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Spark;
+
 /* >>------>
            ___
           |_|_|
@@ -30,44 +32,27 @@ package frc.robot.subsystems;
   --Test it
 <------<< */
 
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class BoxCollector extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  public BoxCollector() {}
-  final double kP = 0.5;
-  final double kI = 0;
-  final double kD = 0.5;
-  PIDController pid = new PIDController(kP, kI, kD);
+
+  public static Spark armMotor1 = new Spark(0);
+  public static Spark armMotor2 = new Spark(1);
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-  }
-
-  @Override
-  public void simulationPeriodic() {
-    // This method will be called once per scheduler run during simulation
-  }
-
-  private Encoder encoder = new Encoder(0, 1, false, EncodingType.k4X);
-  private final double kDriveTick2Feet = 1.0 / 128 * 6 * Math.PI / 12;
-  double setpoint = 0;
-  public void pullBox() {
-      double in = UltrasonicSubsystem.getInches();
+    double in = UltrasonicSubsystem.getInches();
       
-      if (in < Constants.UltraSensorThreshold) {
-        setpoint = in * 12;
-        double sensorPosition = encoder.get() * kDriveTick2Feet;
-        double error = setpoint - sensorPosition;
-        double outputSpeed = kP * error;
-
-        Constants.armMotor1.set(outputSpeed);
-        Constants.armMotor2.set(-outputSpeed);
+    if (in < Constants.UltraSensorThreshold) {
+      if (in >= 0.5) {
+        armMotor1.set(1);
+        armMotor2.set(-1);
+      } else {
+        armMotor1.set(0);
+        armMotor2.set(0);
       }
+    }
   }
 }
