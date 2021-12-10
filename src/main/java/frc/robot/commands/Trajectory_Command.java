@@ -33,6 +33,7 @@ public class Trajectory_Command extends CommandBase {
   public Command getAutonomousCommand() {
 
     // Create a voltage constraint to ensure we don't accelerate too fast
+    // Int
     var autoVoltageConstraint =
         new DifferentialDriveVoltageConstraint(
             new SimpleMotorFeedforward(Constants.ksVolts,
@@ -40,7 +41,7 @@ public class Trajectory_Command extends CommandBase {
                                        Constants.kaVoltSecondsSquaredPerMeter),
             Constants.kDriveKinematics,
             10);
-
+    System.out.println("autovoltage: " + autoVoltageConstraint);
     // Create config for trajectory
     TrajectoryConfig config =
         new TrajectoryConfig(Constants.kMaxSpeedMetersPerSecond,
@@ -49,7 +50,7 @@ public class Trajectory_Command extends CommandBase {
             .setKinematics(Constants.kDriveKinematics)
             // Apply the voltage constraint
             .addConstraint(autoVoltageConstraint);
-
+    System.out.println("Trajectory config: " + config.getEndVelocity());
     // An example trajectory to follow.  All units in meters.
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
         // Start at the origin facing the +X direction
@@ -64,7 +65,7 @@ public class Trajectory_Command extends CommandBase {
         // Pass config
         config
     );
-
+    System.out.println("Example Trajectory: " + exampleTrajectory);
     RamseteCommand ramseteCommand = new RamseteCommand(
         exampleTrajectory,
         driveSubsystem::getPose,
