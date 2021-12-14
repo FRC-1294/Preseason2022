@@ -89,7 +89,7 @@ public class Trajectory_Command extends CommandBase {
     driveSubsystem.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    System.out.println(ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0)));
+    // System.out.println(ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0)));
     return ramseteCommand.andThen(() -> driveSubsystem.tankDriveVolts(0, 0));
 
   }

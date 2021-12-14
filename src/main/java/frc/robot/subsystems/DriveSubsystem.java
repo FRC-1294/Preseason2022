@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -57,6 +59,8 @@ public class DriveSubsystem extends SubsystemBase {
    * Creates a new DriveSubsystem.
    */
   public DriveSubsystem() {
+    initSparks();
+
     // Sets the distance per pulse for the encoders
     m_leftEncoder.setPositionConversionFactor(Constants.kEncoderDistancePerPulse);
     m_rightEncoder.setPositionConversionFactor(Constants.kEncoderDistancePerPulse);
@@ -65,14 +69,46 @@ public class DriveSubsystem extends SubsystemBase {
     m_odometry = new DifferentialDriveOdometry(m_gyro.getRotation2d());
   }
 
+  public void initSparks() {
+    leftFrontSpark.restoreFactoryDefaults(true);
+    rightFrontSpark.restoreFactoryDefaults(true);
+    leftRearSpark.restoreFactoryDefaults(true);
+    rightRearSpark.restoreFactoryDefaults(true);
+
+    leftFrontSpark.getEncoder();
+    rightFrontSpark.getEncoder();
+    leftRearSpark.getEncoder();
+    rightRearSpark.getEncoder();
+
+    leftFrontSpark.setSmartCurrentLimit(60);
+    rightFrontSpark.setSmartCurrentLimit(60);
+    leftRearSpark.setSmartCurrentLimit(60);
+    rightRearSpark.setSmartCurrentLimit(60);
+    
+    leftFrontSpark.setIdleMode(IdleMode.kBrake);
+    leftRearSpark.setIdleMode(IdleMode.kBrake);
+    rightFrontSpark.setIdleMode(IdleMode.kBrake);
+    rightRearSpark.setIdleMode(IdleMode.kBrake);
+
+    leftFrontSpark.setInverted(false);
+    leftRearSpark.setInverted(false);
+    rightFrontSpark.setInverted(true);
+    rightRearSpark.setInverted(false);
+
+    leftRearSpark.follow(leftFrontSpark);
+    rightRearSpark.follow(rightFrontSpark);
+  }
+
   @Override
   public void periodic() {
     // Update the odometry in the periodic block
     // m_odometry.update(m_gyro.getRotation2d(), m_leftEncoder.getPosition(),
                       // m_rightEncoder.getPosition());
 
-    System.out.println("HERR2");
-    arcadeDrive(-joystick.getY(Hand.kLeft), joystick.getX(Hand.kRight));
+    arcadeDrive(joystick.getX(Hand.kRight), -joystick.getY(Hand.kLeft));
+
+    SmartDashboard.putNumber("left encoder", leftFrontSpark.getEncoder().getPosition());
+    SmartDashboard.putNumber("right encoder", rightFrontSpark.getEncoder().getPosition());
   }
 
   /**

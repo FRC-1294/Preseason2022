@@ -43,7 +43,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     System.out.println("Command");
-    return new Trajectory_Command(null);
-
+    return new Trajectory_Command(drive).getAutonomousCommand();
   }
 }
