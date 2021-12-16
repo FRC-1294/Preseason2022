@@ -27,8 +27,7 @@ public final class Constants {
     // Example value only - as above, this must be tuned for your drive!
     public static final double kPDriveVel = 0.001;
     public static final double kTrackwidthMeters = 0.69;
-    public static final DifferentialDriveKinematics kDriveKinematics =
-        new DifferentialDriveKinematics(kTrackwidthMeters);
+    public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
     public static final double kMaxSpeedMetersPerSecond = 3;
     public static final double kMaxAccelerationMetersPerSecondSquared = 3;
     public static final double kRamseteB = 2;
@@ -45,5 +44,9 @@ public final class Constants {
     public static final boolean kRightEncoderReversed= false;
     public static final int[] kLeftEncoderPorts= {0};
     public static final boolean  kLeftEncoderReversed= false;
-	public static final double kEncoderDistancePerPulse = 0.142;
+    public static final double kEncoderDistancePerPulse = 0.142;
+    public static double driveTime;
+    public static double autonomousSpeed;
+    public static double degreeTurn;
+    public static double turnSpeed;
 }

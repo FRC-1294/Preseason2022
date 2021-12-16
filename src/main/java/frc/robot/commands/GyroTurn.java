@@ -4,33 +4,36 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.Constants;
-public class DriveForwardCMD extends CommandBase {
-  /** Creates a new DriveForwardCMD. */
+import frc.robot.subsystems.DriveSubsystem;
+
+public class GyroTurn extends CommandBase {
+  /** Creates a new GyroTurn. */
   DriveSubsystem driveTrain;
   private boolean finish = false;
-  Timer timer;
-  public DriveForwardCMD(DriveSubsystem dt, double time, double speed) {
+  public GyroTurn(DriveSubsystem dt, double degrees, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     driveTrain = dt;
     addRequirements(driveTrain);
-    timer = new Timer();
-    Constants.driveTime = time;
-    Constants.autonomousSpeed = speed;
+    Constants.turnSpeed = speed;
+    Constants.degreeTurn = degrees;
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer.reset();
-    timer.start();
-    while (timer.get() < Constants.driveTime) {
-      driveTrain.tankDriveVolts(Constants.autonomousSpeed, Constants.autonomousSpeed);
+    driveTrain.zeroHeading();
+    while(driveTrain.getHeading()> Constants.degreeTurn){
+      driveTrain.tankDriveVolts(-Constants.turnSpeed,Constants.turnSpeed);
     }
-    finish = true;
+    while(driveTrain.getHeading()<Constants.degreeTurn){
+      driveTrain.tankDriveVolts(Constants.turnSpeed, Constants.turnSpeed);
+    }
+    if(driveTrain.getHeading() == Constants.degreeTurn){
+      finish = true;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
