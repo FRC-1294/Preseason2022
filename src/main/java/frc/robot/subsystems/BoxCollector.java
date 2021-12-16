@@ -30,8 +30,25 @@ public class BoxCollector extends SubsystemBase {
 
   public static boolean overriding = false;
 
+  private boolean cancelOveride = false;
+  private double instantManualEmergencyRobotFullSystemOverideSparkMotorConstantSpeedAsDoubleSubjectToChange = 1;
+
   @Override
   public void periodic() {
+    if (Constants.xboxController.getAButton()) {
+      overide(instantManualEmergencyRobotFullSystemOverideSparkMotorConstantSpeedAsDoubleSubjectToChange);
+    }
+    else if (cancelOveride) {
+      overide(0);
+      cancelOveride = false;
+    } else {
+      cancelOveride = true;
+
+      autoCollector();
+    }
+  }
+
+  public void autoCollector() {
     if (overriding) return;
 
     double in = UltrasonicSubsystem.getInches();
@@ -45,11 +62,12 @@ public class BoxCollector extends SubsystemBase {
         armMotor2.set(0);
       }
     }
+    
     }
 
-  public static void overide(int speed) {
+  public static void overide(double speed) {
     armMotor1.set(speed);
-    armMotor2.set(speed);
+    armMotor2.set(-speed);
 }
 }
 
