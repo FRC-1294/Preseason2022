@@ -5,12 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveForwardCMD extends CommandBase {
-  /** Creates a new DriveForwardCMD. */
-  public DriveForwardCMD() {
-    // Use addRequirements() here to declare subsystem dependencies.
-  }
+  
+  private final DriveSubsystem DriveSubsystem;
+  private final double distance;
+  public DriveForwardCmd(DriveSubsystem driveSubsystem, double distance) {
+    this.driveSubsystem = driveSubsystem;
+    this.distance = driveSubsystem.getEncoderMeters() + distance;
+    addRequirements(driveSubsystem);
+}
 
   // Called when the command is initially scheduled.
   @Override

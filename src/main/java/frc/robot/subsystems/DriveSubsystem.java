@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
   // The motors on the left side of the drive.
@@ -30,7 +31,11 @@ public class DriveSubsystem extends SubsystemBase {
   private CANSparkMax leftRearSpark = new CANSparkMax(Constants.kLeftMotor2Port, MotorType.kBrushless);
   private CANSparkMax rightFrontSpark = new CANSparkMax(Constants.kRightMotor1Port, MotorType.kBrushless);
   private CANSparkMax rightRearSpark = new CANSparkMax(Constants.kRightMotor2Port, MotorType.kBrushless);
-  
+  private Encoder leftEncoder = new Encoder(//
+          DriveConstants.kLeftEncoderChannelA, DriveConstants.kLeftEncoderChannelB);
+private Encoder rightEncoder = new Encoder(//
+          DriveConstants.kRightEncoderChannelA, DriveConstants.kRightEncoderChannelB);
+
   private final SpeedControllerGroup m_leftMotors =
       new SpeedControllerGroup(leftFrontSpark,leftRearSpark);
 
@@ -120,6 +125,7 @@ public class DriveSubsystem extends SubsystemBase {
     return m_odometry.getPoseMeters();
   }
 
+
   /**
    * Returns the current wheel speeds of the robot.
    *
@@ -138,6 +144,11 @@ public class DriveSubsystem extends SubsystemBase {
     resetEncoders();
     m_odometry.resetPosition(pose, m_gyro.getRotation2d());
   }
+
+  public void setMotors(double leftSpeed, double rightSpeed) {
+    leftRearSpark.set(leftSpeed);
+    rightRearSpark.set(-rightSpeed);
+}
 
   /**
    * Drives the robot using arcade controls.
@@ -176,6 +187,10 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public double getAverageEncoderDistance() {
     return (m_leftEncoder.getPosition() + m_rightEncoder.getPosition()) / 2.0;
+  }
+
+  public double getEncoderMeters() {
+    return (leftEncoder.get() + -rightEncoder.get()) / 2 * DriveConstants.kEncoderTick2Meter;
   }
 
   /**
