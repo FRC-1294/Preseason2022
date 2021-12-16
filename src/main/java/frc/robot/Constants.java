@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.XboxController;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -25,4 +26,6 @@ public final class Constants {
     public static Spark armMotor1 = new Spark(0);
     public static Spark armMotor2 = new Spark(1);
 
+    public static int xboxControllerPort = 9480;
+    public static XboxController xboxController = new XboxController(xboxControllerPort);
 }

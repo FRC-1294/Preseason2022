@@ -7,6 +7,39 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.BoxCollector;
+
+/* >>------>
+           ___
+          |_|_|
+          |_|_|              _____
+          |_|_|     ____    |*_*_*|
+ _______   _\__\___/ __ \____|_|_   _______
+/ ____  |=|      \  <_+>  /      |=|  ____ \
+~|    |\|=|======\\______//======|=|/|    |~
+ |_   |    \      |      |      /    |    |
+  \==-|     \     | 1294 |     /     |----|~~/
+  |   |      |    |      |    |      |____/~/
+  |   |       \____\____/____/      /    / /
+  |   |         {----------}       /____/ /
+  |___|        /~~~~~~~~~~~~\     |_/~|_|/
+   \_/        |/~~~~~||~~~~~\|     /__|\
+   | |         |    ||||    |     (/|| \)
+   | |        /     |  |     \       \\
+   |_|        |     |  |     |
+              |_____|  |_____|
+              (_____)  (_____)
+              |     |  |     |
+              |     |  |     |
+              |/~~~\|  |/~~~\|
+              /|___|\  /|___|\
+             <_______><_______>
+
+  --Tune PID
+  --Test it
+<------<< */
+
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -16,8 +49,10 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
   private RobotContainer m_robotContainer;
+
+  private boolean cancelOveride = false;
+  private int instantManualEmergencyRobotFullSystemOverideSparkMotorConstantSpeedAsIntegerSubjectToChange = 1;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -81,7 +116,19 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    if (Constants.xboxController.getAButton()) {
+      BoxCollector.overriding = true;
+      BoxCollector.overide(instantManualEmergencyRobotFullSystemOverideSparkMotorConstantSpeedAsIntegerSubjectToChange);
+    }
+    else if (cancelOveride) {
+      BoxCollector.overide(0);
+      BoxCollector.overriding = false;
+      cancelOveride = false;
+    } else {
+      cancelOveride = true;
+    }
+  }
 
   @Override
   public void testInit() {
