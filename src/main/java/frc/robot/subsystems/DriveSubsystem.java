@@ -28,20 +28,18 @@ import frc.robot.Constants.DriveConstants;
 public class DriveSubsystem extends SubsystemBase {
   // The motors on the left side of the drive.
   private CANSparkMax leftFrontSpark = new CANSparkMax(Constants.kLeftMotor1Port, MotorType.kBrushless);
-  private CANSparkMax leftRearSpark = new CANSparkMax(Constants.kLeftMotor2Port, MotorType.kBrushless);
+  private static CANSparkMax leftRearSpark = new CANSparkMax(Constants.kLeftMotor2Port, MotorType.kBrushless);
   private CANSparkMax rightFrontSpark = new CANSparkMax(Constants.kRightMotor1Port, MotorType.kBrushless);
-  private CANSparkMax rightRearSpark = new CANSparkMax(Constants.kRightMotor2Port, MotorType.kBrushless);
-  private Encoder leftEncoder = new Encoder(//
-          DriveConstants.kLeftEncoderChannelA, DriveConstants.kLeftEncoderChannelB);
-private Encoder rightEncoder = new Encoder(//
-          DriveConstants.kRightEncoderChannelA, DriveConstants.kRightEncoderChannelB);
+  private static CANSparkMax rightRearSpark = new CANSparkMax(Constants.kRightMotor2Port, MotorType.kBrushless);
+  private static Encoder leftEncoder = new Encoder(//
+      DriveConstants.kLeftEncoderChannelA, DriveConstants.kLeftEncoderChannelB);
+  private static Encoder rightEncoder = new Encoder(//
+      DriveConstants.kRightEncoderChannelA, DriveConstants.kRightEncoderChannelB);
 
-  private final SpeedControllerGroup m_leftMotors =
-      new SpeedControllerGroup(leftFrontSpark,leftRearSpark);
+  private final SpeedControllerGroup m_leftMotors = new SpeedControllerGroup(leftFrontSpark, leftRearSpark);
 
   // The motors on the right side of the drive.
-  private final SpeedControllerGroup m_rightMotors =
-      new SpeedControllerGroup(rightFrontSpark, rightRearSpark);
+  private final SpeedControllerGroup m_rightMotors = new SpeedControllerGroup(rightFrontSpark, rightRearSpark);
 
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
@@ -89,7 +87,7 @@ private Encoder rightEncoder = new Encoder(//
     rightFrontSpark.setSmartCurrentLimit(60);
     leftRearSpark.setSmartCurrentLimit(60);
     rightRearSpark.setSmartCurrentLimit(60);
-    
+
     leftFrontSpark.setIdleMode(IdleMode.kBrake);
     leftRearSpark.setIdleMode(IdleMode.kBrake);
     rightFrontSpark.setIdleMode(IdleMode.kBrake);
@@ -108,7 +106,7 @@ private Encoder rightEncoder = new Encoder(//
   public void periodic() {
     // Update the odometry in the periodic block
     // m_odometry.update(m_gyro.getRotation2d(), m_leftEncoder.getPosition(),
-                      // m_rightEncoder.getPosition());
+    // m_rightEncoder.getPosition());
 
     arcadeDrive(joystick.getX(Hand.kRight), -joystick.getY(Hand.kLeft));
 
@@ -124,7 +122,6 @@ private Encoder rightEncoder = new Encoder(//
   public Pose2d getPose() {
     return m_odometry.getPoseMeters();
   }
-
 
   /**
    * Returns the current wheel speeds of the robot.
@@ -145,10 +142,10 @@ private Encoder rightEncoder = new Encoder(//
     m_odometry.resetPosition(pose, m_gyro.getRotation2d());
   }
 
-  public void setMotors(double leftSpeed, double rightSpeed) {
+  public static void setMotors(double leftSpeed, double rightSpeed) {
     leftRearSpark.set(leftSpeed);
     rightRearSpark.set(-rightSpeed);
-}
+  }
 
   /**
    * Drives the robot using arcade controls.
@@ -189,7 +186,7 @@ private Encoder rightEncoder = new Encoder(//
     return (m_leftEncoder.getPosition() + m_rightEncoder.getPosition()) / 2.0;
   }
 
-  public double getEncoderMeters() {
+  public static double getEncoderMeters() {
     return (leftEncoder.get() + -rightEncoder.get()) / 2 * DriveConstants.kEncoderTick2Meter;
   }
 
