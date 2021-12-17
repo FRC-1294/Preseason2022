@@ -45,7 +45,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -55,11 +57,11 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     new SequentialCommandGroup(
       new DriveForwardEncoder(drive, 1.7526, 0.5),
-      new GyroTurn(drive, 135, 0.5),
+      new GyroTurn(drive, 45, 0.5),
       new DriveForwardEncoder(drive, 2.6416, 0.5), 
-      new GyroTurn(drive, 135, 0.5), 
+      new GyroTurn(drive, 90, 0.5), 
       new DriveForwardEncoder(drive, 2.032, 0.5), 
-      new GyroTurn(drive, 135, 0.5));
+      new GyroTurn(drive, -45, 0.5));
       new DriveForwardEncoder(drive, 1.7526, 0.5);
     return new Trajectory_Command(drive).getAutonomousCommand();
     
