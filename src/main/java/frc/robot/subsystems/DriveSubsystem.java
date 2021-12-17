@@ -23,20 +23,23 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
   // The motors on the left side of the drive.
   private CANSparkMax leftFrontSpark = new CANSparkMax(Constants.kLeftMotor1Port, MotorType.kBrushless);
-  private CANSparkMax leftRearSpark = new CANSparkMax(Constants.kLeftMotor2Port, MotorType.kBrushless);
+  private static CANSparkMax leftRearSpark = new CANSparkMax(Constants.kLeftMotor2Port, MotorType.kBrushless);
   private CANSparkMax rightFrontSpark = new CANSparkMax(Constants.kRightMotor1Port, MotorType.kBrushless);
-  private CANSparkMax rightRearSpark = new CANSparkMax(Constants.kRightMotor2Port, MotorType.kBrushless);
-  
-  private final SpeedControllerGroup m_leftMotors =
-      new SpeedControllerGroup(leftFrontSpark,leftRearSpark);
+  private static CANSparkMax rightRearSpark = new CANSparkMax(Constants.kRightMotor2Port, MotorType.kBrushless);
+  private static Encoder leftEncoder = new Encoder(//
+      DriveConstants.kLeftEncoderChannelA, DriveConstants.kLeftEncoderChannelB);
+  private static Encoder rightEncoder = new Encoder(//
+      DriveConstants.kRightEncoderChannelA, DriveConstants.kRightEncoderChannelB);
+
+  private final SpeedControllerGroup m_leftMotors = new SpeedControllerGroup(leftFrontSpark, leftRearSpark);
 
   // The motors on the right side of the drive.
-  private final SpeedControllerGroup m_rightMotors =
-      new SpeedControllerGroup(rightFrontSpark, rightRearSpark);
+  private final SpeedControllerGroup m_rightMotors = new SpeedControllerGroup(rightFrontSpark, rightRearSpark);
 
   // The robot's drive
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
@@ -84,7 +87,7 @@ public class DriveSubsystem extends SubsystemBase {
     rightFrontSpark.setSmartCurrentLimit(60);
     leftRearSpark.setSmartCurrentLimit(60);
     rightRearSpark.setSmartCurrentLimit(60);
-    
+
     leftFrontSpark.setIdleMode(IdleMode.kBrake);
     leftRearSpark.setIdleMode(IdleMode.kBrake);
     rightFrontSpark.setIdleMode(IdleMode.kBrake);
@@ -103,7 +106,7 @@ public class DriveSubsystem extends SubsystemBase {
   public void periodic() {
     // Update the odometry in the periodic block
     // m_odometry.update(m_gyro.getRotation2d(), m_leftEncoder.getPosition(),
-                      // m_rightEncoder.getPosition());
+    // m_rightEncoder.getPosition());
 
     arcadeDrive(joystick.getX(Hand.kRight), -joystick.getY(Hand.kLeft));
 
@@ -137,6 +140,11 @@ public class DriveSubsystem extends SubsystemBase {
   public void resetOdometry(Pose2d pose) {
     resetEncoders();
     m_odometry.resetPosition(pose, m_gyro.getRotation2d());
+  }
+
+  public static void setMotors(double leftSpeed, double rightSpeed) {
+    leftRearSpark.set(leftSpeed);
+    rightRearSpark.set(-rightSpeed);
   }
 
   /**
@@ -176,6 +184,10 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public double getAverageEncoderDistance() {
     return (m_leftEncoder.getPosition() + m_rightEncoder.getPosition()) / 2.0;
+  }
+
+  public static double getEncoderMeters() {
+    return (leftEncoder.get() + -rightEncoder.get()) / 2 * DriveConstants.kEncoderTick2Meter;
   }
 
   /**

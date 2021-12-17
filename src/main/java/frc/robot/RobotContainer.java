@@ -50,7 +50,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    System.out.println("Command");
     new SequentialCommandGroup(new GyroTurn(drive, 135, 0.5), new DriveForwardCMD(drive, 1, 0.5), new GyroTurn(drive, 135, 0.5), new DriveForwardCMD(drive, 1, 0.5), new GyroTurn(drive, 135, 0.5));
     return new Trajectory_Command(drive).getAutonomousCommand();
     
