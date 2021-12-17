@@ -65,4 +65,6 @@ public final class Constants {
     public static double autonomousSpeed;
     public static double degreeTurn;
     public static double turnSpeed;
+    public static double distance;
+    public static double speedForEncoder;
 }
