@@ -22,6 +22,8 @@ import frc.robot.subsystems.DriveSubsystem;
 
 
 
+import frc.robot.commands.VisionCommand;
+import frc.robot.subsystems.VisionSubsystem;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -37,6 +39,9 @@ public class RobotContainer {
 
   public final UltrasonicSubsystem m_ultrasonicSubsystem = new UltrasonicSubsystem();
 
+  private final VisionSubsystem m_visionSubsystem = new VisionSubsystem();
+  private final VisionCommand m_visionCommand = new VisionCommand(m_visionSubsystem);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive = new DriveSubsystem();
@@ -44,6 +49,10 @@ public class RobotContainer {
     driveForwardCMD.addRequirements(drive);
     gyroTurnCMD = new GyroTurn(drive, 135, 0.5);
 
+    // Configure the button bindings
+    configureButtonBindings();
+
+    m_visionCommand.schedule(true);
   }
   XboxController joystick = new XboxController(0); 
 
@@ -91,6 +100,7 @@ public class RobotContainer {
   }
   public boolean yButtonPressed(){ 
     return joystick.getYButton(); 
+    //return m_visionCommand;
   }
 
   //joysticks
