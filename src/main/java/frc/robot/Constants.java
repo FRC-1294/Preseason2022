@@ -35,29 +35,42 @@ public final class Constants {
     public static final double kvVoltSecondsPerMeter = 1.98;
     public static final double kaVoltSecondsSquaredPerMeter = 0.2;
 
+    public static final class DriveConstants {
+        public static final int kLeftMotorPort = 0;
+        public static final int kRightMotorPort = 1;
+        public static final int kLeftEncoderChannelA = 0;
+        public static final int kLeftEncoderChannelB = 1;
+        public static final int kRightEncoderChannelA = 2;
+        public static final int kRightEncoderChannelB = 3;
+        public static final double kEncoderTick2Meter = 1.0 / 4096.0 * 0.128 * Math.PI;
+
+        public static final double kAutoDriveForwardSpeed = 0.5;
+        public static final double kAutoDriveForwardDistance = 1.5;
+    }
+
+
     // Example value only - as above, this must be tuned for your drive!
-    public static final double kPDriveVel = 8.5;
+    public static final double kPDriveVel = 0.001;
     public static final double kTrackwidthMeters = 0.69;
-    public static final DifferentialDriveKinematics kDriveKinematics =
-        new DifferentialDriveKinematics(kTrackwidthMeters);
+    public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
     public static final double kMaxSpeedMetersPerSecond = 3;
     public static final double kMaxAccelerationMetersPerSecondSquared = 3;
     public static final double kRamseteB = 2;
     public static final double kRamseteZeta = 0.7;
     public static final double DriveConstants = 1.5;
     //need to update left and right ports below
-    public static final int kLeftMotor1Port=1;
-    public static final int kLeftMotor2Port=2;
-    public static final int kRightMotor1Port=3;
-    public static final int kRightMotor2Port=4;
+    public static final int kLeftMotor1Port = 10;
+    public static final int kLeftMotor2Port = 12;
+    public static final int kRightMotor1Port = 11;
+    public static final int kRightMotor2Port = 13;
+    public static final class OIConstants {
+        public static final int kDriverJoystickPort = 0;
+    }
 
     //need to update left and right encoder ports as well
     public static final int[] kRightEncoderPorts= {0};
     public static final boolean kRightEncoderReversed= false;
     public static final int[] kLeftEncoderPorts= {0};
     public static final boolean  kLeftEncoderReversed= false;
-	public static final double kEncoderDistancePerPulse = 0;
-    
-    
-
-}
+    public static final double kEncoderDistancePerPulse = 0;
+}    
