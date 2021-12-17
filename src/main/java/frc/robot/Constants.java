@@ -6,13 +6,20 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.XboxController;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
+ * The Constants class provides a convenient place for teams to hold robot-wide
+ * numerical or boolean constants. This class should not be used for any other
+ * purpose. All constants should be declared globally (i.e. public static). Do
+ * not put anything functional in this class.
  *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
+ * <p>
+ * It is advised to statically import this class (or one of its inner classes)
+ * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
     public static int UltraSensorPingChannel = 0;
@@ -23,4 +30,34 @@ public final class Constants {
 
     public static int xboxControllerPort = 9480;
     public static XboxController xboxController = new XboxController(xboxControllerPort);
+
+    public static final double ksVolts = 0.22;
+    public static final double kvVoltSecondsPerMeter = 1.98;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.2;
+
+    // Example value only - as above, this must be tuned for your drive!
+    public static final double kPDriveVel = 8.5;
+    public static final double kTrackwidthMeters = 0.69;
+    public static final DifferentialDriveKinematics kDriveKinematics =
+        new DifferentialDriveKinematics(kTrackwidthMeters);
+    public static final double kMaxSpeedMetersPerSecond = 3;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+    public static final double kRamseteB = 2;
+    public static final double kRamseteZeta = 0.7;
+    public static final double DriveConstants = 1.5;
+    //need to update left and right ports below
+    public static final int kLeftMotor1Port=1;
+    public static final int kLeftMotor2Port=2;
+    public static final int kRightMotor1Port=3;
+    public static final int kRightMotor2Port=4;
+
+    //need to update left and right encoder ports as well
+    public static final int[] kRightEncoderPorts= {0};
+    public static final boolean kRightEncoderReversed= false;
+    public static final int[] kLeftEncoderPorts= {0};
+    public static final boolean  kLeftEncoderReversed= false;
+	public static final double kEncoderDistancePerPulse = 0;
+    
+    
+
 }
