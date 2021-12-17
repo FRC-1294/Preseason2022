@@ -56,7 +56,7 @@ public class DriveSubsystem extends SubsystemBase {
   // Odometry class for tracking robot pose
   private final DifferentialDriveOdometry m_odometry;
 
-  private XboxController joystick = new XboxController(0);
+  public XboxController driveController = new XboxController(0);
 
   /**
    * Creates a new DriveSubsystem.
@@ -108,7 +108,7 @@ public class DriveSubsystem extends SubsystemBase {
     // m_odometry.update(m_gyro.getRotation2d(), m_leftEncoder.getPosition(),
     // m_rightEncoder.getPosition());
 
-    arcadeDrive(joystick.getX(Hand.kRight), -joystick.getY(Hand.kLeft));
+    arcadeDrive(driveController.getX(Hand.kRight), -driveController.getY(Hand.kLeft));
 
     SmartDashboard.putNumber("left encoder", leftFrontSpark.getEncoder().getPosition());
     SmartDashboard.putNumber("right encoder", rightFrontSpark.getEncoder().getPosition());

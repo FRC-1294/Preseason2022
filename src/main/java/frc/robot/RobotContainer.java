@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj.drive.RobotDriveBase.MotorType;
 import frc.robot.subsystems.UltrasonicSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.DriveForwardCMD;
-import frc.robot.commands.GyroTurn;
+//import frc.robot.commands.DriveForwardCMD;
+//import frc.robot.commands.GyroTurn;
 import frc.robot.commands.Trajectory_Command;
 import frc.robot.subsystems.DriveSubsystem;
 
@@ -34,8 +34,8 @@ public class RobotContainer {
  
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem drive;
-  private DriveForwardCMD driveForwardCMD;
-  private GyroTurn gyroTurnCMD;
+  //private DriveForwardCMD driveForwardCMD;
+  //private GyroTurn gyroTurnCMD;
 
   public final UltrasonicSubsystem m_ultrasonicSubsystem = new UltrasonicSubsystem();
 
@@ -45,9 +45,9 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     drive = new DriveSubsystem();
-    driveForwardCMD = new DriveForwardCMD(drive, 1, 0.5);
-    driveForwardCMD.addRequirements(drive);
-    gyroTurnCMD = new GyroTurn(drive, 135, 0.5);
+    //driveForwardCMD = new DriveForwardCMD(drive, 1, 0.5);
+    //driveForwardCMD.addRequirements(drive);
+    //gyroTurnCMD = new GyroTurn(drive, 135, 0.5);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -84,7 +84,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    new SequentialCommandGroup(new GyroTurn(drive, 135, 0.5), new DriveForwardCMD(drive, 1, 0.5), new GyroTurn(drive, 135, 0.5), new DriveForwardCMD(drive, 1, 0.5), new GyroTurn(drive, 135, 0.5));
+    //new SequentialCommandGroup(new GyroTurn(drive, 135, 0.5), new DriveForwardCMD(drive, 1, 0.5), new GyroTurn(drive, 135, 0.5), new DriveForwardCMD(drive, 1, 0.5), new GyroTurn(drive, 135, 0.5));
     return new Trajectory_Command(drive).getAutonomousCommand();
     
   }

@@ -14,7 +14,7 @@ public class GameJoystickSubsystem extends SubsystemBase {
 XboxController Controller;
 
   public GameJoystickSubsystem() {
-    Controller = new XboxController(Constants.gameControllerPort);
+    Controller = new XboxController(1);
 
   }
 
