@@ -1,7 +1,7 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-
+//Hey, stop breaking OUR code - Arjun...all of them, every single one so you can't blame this message on a specific arjun........
 package frc.robot.commands;
 
 import java.util.List;
@@ -60,8 +60,8 @@ public class Trajectory_Command extends CommandBase {
         new Pose2d(0, 0, new Rotation2d(0)),
         // Pass through these two interior waypoints, making an 's' curve path
         List.of(
-            new Translation2d(1, 1),
-            new Translation2d(2, -1)
+            new Translation2d(5, 5)
+            //new Translation2d(2, -1)
         ),
         // End 3 meters straight ahead of where we started, facing forward
         new Pose2d(3, 0, new Rotation2d(0)),

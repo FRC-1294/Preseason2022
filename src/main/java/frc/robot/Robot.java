@@ -29,6 +29,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     SmartDashboard.putNumber("Joystick X value",1);
   }
 
@@ -44,7 +45,8 @@ public class Robot extends TimedRobot {
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
-    // block in order for anything in the Command-based framework to work.
+    // block in order for anything in the Command-based framework to work.HI
+    //
     CommandScheduler.getInstance().run();
   }
 
@@ -57,9 +59,7 @@ public class Robot extends TimedRobot {
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
-  public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
+  public void autonomousInit() {;
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();

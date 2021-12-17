@@ -95,7 +95,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     leftFrontSpark.setInverted(false);
     leftRearSpark.setInverted(false);
-    rightFrontSpark.setInverted(true);
+    rightFrontSpark.setInverted(false);
     rightRearSpark.setInverted(false);
 
     leftRearSpark.follow(leftFrontSpark);

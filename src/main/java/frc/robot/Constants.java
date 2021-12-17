@@ -20,9 +20,9 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final double ksVolts = 0.22;
-    public static final double kvVoltSecondsPerMeter = 1.98;
-    public static final double kaVoltSecondsSquaredPerMeter = 0.2;
+    public static final double ksVolts = 0.18;
+    public static final double kvVoltSecondsPerMeter = 2.94;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.186;
 
     public static final class DriveConstants {
         public static final int kLeftMotorPort = 0;
@@ -39,15 +39,15 @@ public final class Constants {
 
 
     // Example value only - as above, this must be tuned for your drive!
-    public static final double kPDriveVel = 0.001;
-    public static final double kTrackwidthMeters = 0.69;
+    public static final double kPDriveVel = 0.05;
+    public static final double kTrackwidthMeters = 0.5692804309970628;
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(kTrackwidthMeters);
     public static final double kMaxSpeedMetersPerSecond = 3;
     public static final double kMaxAccelerationMetersPerSecondSquared = 3;
     public static final double kRamseteB = 2;
     public static final double kRamseteZeta = 0.7;
     public static final double DriveConstants = 1.5;
-    //need to update left and right ports below
+    //need to update left and right ports below 
     public static final int kLeftMotor1Port=10;
     public static final int kLeftMotor2Port=12;
     public static final int kRightMotor1Port=11;
