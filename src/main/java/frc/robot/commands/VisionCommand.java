@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.DriveSubsystem;
 
 //limelight stuff
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,13 +20,17 @@ public class VisionCommand extends CommandBase {
     private NetworkTable table;
     private double targetOffsetAngle_Horizontal;
     private double targetOffsetAngle_Vertical;
+    private final double maxTarget = 69;
+    private final double minTarget = 420;
     private double targetArea;
-
+    private boolean isFinished;
+    private DriveSubsystem vromVrom;
 
   public VisionCommand(VisionSubsystem subsystem) {
     m_subsystem = subsystem;
    
     addRequirements(subsystem);
+    
   }
 
   // Called when the command is initially scheduled.
@@ -46,15 +51,24 @@ public class VisionCommand extends CommandBase {
       System.out.println("horizontal target offset angle: " + targetOffsetAngle_Horizontal);
       System.out.println("vertical target offset angle: " + targetOffsetAngle_Horizontal);
       System.out.println("area: " + targetArea);
+
+      if (targetOffsetAngle_Vertical < maxTarget && targetOffsetAngle_Vertical > minTarget) {
+        isFinished = true;
+      } else {
+        vromVrom.arcadeDrive(.19, 0, false);
+        System.out.println("vrom vrom");
+      }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    vromVrom.arcadeDrive(0, 0, false);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return isFinished;
   }
 }
