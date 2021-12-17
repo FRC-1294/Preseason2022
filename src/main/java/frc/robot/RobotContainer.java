@@ -46,7 +46,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    
+
   }
 
   /**
@@ -57,7 +57,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     new SequentialCommandGroup(
       new DriveForwardEncoder(drive, 1.7526, 0.5),
-      new GyroTurn(drive, 45, 0.5),
+      new GyroTurn(drive, -45, 0.5),
       new DriveForwardEncoder(drive, 2.6416, 0.5), 
       new GyroTurn(drive, 90, 0.5), 
       new DriveForwardEncoder(drive, 2.032, 0.5), 
