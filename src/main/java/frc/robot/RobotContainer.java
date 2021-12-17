@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.RobotDriveBase.MotorType;
+import frc.robot.subsystems.UltrasonicSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriveForwardCMD;
@@ -33,6 +34,8 @@ public class RobotContainer {
   private final DriveSubsystem drive;
   private DriveForwardCMD driveForwardCMD;
   private GyroTurn gyroTurnCMD;
+
+  public final UltrasonicSubsystem m_ultrasonicSubsystem = new UltrasonicSubsystem();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

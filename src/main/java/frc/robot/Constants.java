@@ -21,7 +21,9 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
  * It is advised to statically import this class (or one of its inner classes)
  * wherever the constants are needed, to reduce verbosity.
  */
-public final class Constants {
+public final class Constants { 
+
+    //TODO: Double check these
     public static int UltraSensorPingChannel = 0;
     public static int UltraSensorEchoChannel = 1;
     public static double UltraSensorThreshold = 10;
