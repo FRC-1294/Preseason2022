@@ -23,7 +23,6 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.DriveConstants;
 
 public class DriveSubsystem extends SubsystemBase {
   // The motors on the left side of the drive.
@@ -31,10 +30,6 @@ public class DriveSubsystem extends SubsystemBase {
   private static CANSparkMax leftRearSpark = new CANSparkMax(Constants.kLeftMotor2Port, MotorType.kBrushless);
   private CANSparkMax rightFrontSpark = new CANSparkMax(Constants.kRightMotor1Port, MotorType.kBrushless);
   private static CANSparkMax rightRearSpark = new CANSparkMax(Constants.kRightMotor2Port, MotorType.kBrushless);
-  private static Encoder leftEncoder = new Encoder(//
-      DriveConstants.kLeftEncoderChannelA, DriveConstants.kLeftEncoderChannelB);
-  private static Encoder rightEncoder = new Encoder(//
-      DriveConstants.kRightEncoderChannelA, DriveConstants.kRightEncoderChannelB);
 
   private final SpeedControllerGroup m_leftMotors = new SpeedControllerGroup(leftFrontSpark, leftRearSpark);
 
@@ -108,7 +103,7 @@ public class DriveSubsystem extends SubsystemBase {
     // m_odometry.update(m_gyro.getRotation2d(), m_leftEncoder.getPosition(),
     // m_rightEncoder.getPosition());
 
-    arcadeDrive(driveController.getX(Hand.kRight), -driveController.getY(Hand.kLeft), driveController.getBumper(Hand.kLeft));
+    arcadeDrive(-driveController.getY(Hand.kLeft), driveController.getX(Hand.kRight), driveController.getBumper(Hand.kLeft));
 
     SmartDashboard.putNumber("left encoder", leftFrontSpark.getEncoder().getPosition());
     SmartDashboard.putNumber("right encoder", rightFrontSpark.getEncoder().getPosition());
@@ -243,10 +238,6 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public double getAverageEncoderDistance() {
     return (m_leftEncoder.getPosition() + m_rightEncoder.getPosition()) / 2.0;
-  }
-
-  public static double getEncoderMeters() {
-    return (leftEncoder.get() + -rightEncoder.get()) / 2 * DriveConstants.kEncoderTick2Meter;
   }
 
   /**

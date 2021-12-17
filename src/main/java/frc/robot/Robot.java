@@ -79,65 +79,15 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     encoder.reset();
-    errorSum = 0;
-    lastError = 0;
-    lastTimestamp = Timer.getFPGATimestamp();
   }
-
-  final double kP = 0.5;
-  // Change these variable
-  final double kI = 0.5;
-  final double kD = 0.1;
-  final double iLimit = 1;
-
-  double setpoint = 0;
-  double errorSum = 0;
-  double lastTimestamp = 0;
-  double lastError = 0;
 
   @Override
   public void autonomousPeriodic() {
-    // get joystick command
-    if (joy1.getRawButton(1)) {
-      setpoint = 10;
-    } else if (joy1.getRawButton(2)) {
-      setpoint = 0;
-    }
-
-    // get sensor position
-    double sensorPosition = encoder.get() * kDriveTick2Feet;
-
-    // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-      System.out.println("Robot");
-      // calculations
-      double error = setpoint - sensorPosition;
-      double dt = Timer.getFPGATimestamp() - lastTimestamp;
-
-      if (Math.abs(error) < iLimit) {
-        errorSum += error * dt;
-      }
-
-      double errorRate = (error - lastError) / dt;
-
-      double outputSpeed = kP * error + kI * errorSum + kD * errorRate;
-
-      // output to motors
-      leftMotor1.set(outputSpeed);
-      leftMotor2.set(outputSpeed);
-      rightMotor1.set(-outputSpeed);
-      rightMotor2.set(-outputSpeed);
-
-      // update last- variables
-      lastTimestamp = Timer.getFPGATimestamp();
-      lastError = error;
-    }
   }
 
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putNumber("encoder value", encoder.get() * kDriveTick2Feet);
+    CommandScheduler.getInstance().run();
   }
 
   @Override
@@ -146,6 +96,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    CommandScheduler.getInstance().run();
   }
 
   @Override
